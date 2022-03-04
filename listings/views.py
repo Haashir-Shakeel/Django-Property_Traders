@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from listings.models import Listing
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 
@@ -18,7 +18,13 @@ def listings(request):
     return render(request,'listings/listings.html',context)
 
 def listdetail(request, listing_id):
-    return render(request,'listings/listdetail.html')
+    listing = get_object_or_404(Listing, pk=listing_id)
+
+    context={
+        'listing':listing
+    }
+
+    return render(request,'listings/listdetail.html',context)
 
 def search(request):
     return render(request, 'listings/search.html')
