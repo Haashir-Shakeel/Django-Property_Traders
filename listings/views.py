@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from listings.models import Listing
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from listings.choices import state_choices,price_choices,bedroom_choices
+from listings.filters import ListingFilter
 
 # Create your views here.
 def listings(request):
@@ -58,11 +59,16 @@ def search(request):
         price = request.GET['price']
         if price:
             queryset_list = queryset_list.filter(price__lte=price)
+    
+    # f = ListingFilter(request.GET, queryset=Listing.objects.all())
+    # queryset_list=f.qs
 
     context={
         'state_choices':state_choices,
         'bedroom_choices':bedroom_choices,
         'price_choices':price_choices,
-        'listings':queryset_list
+        'listings':queryset_list,
+        # 'filter': f,
+        'values':request.GET,
     }
     return render(request, 'listings/search.html',context)
