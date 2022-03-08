@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'listings',
     'pages',
     'accounts',
+    'contacts',
 
     #django apps
     'django.contrib.admin',
