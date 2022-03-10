@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from contacts.models import Contact
 from django.contrib import messages
+from django.core.mail import send_mail
 
 # Create your views here.
 def contact(request):
@@ -27,6 +28,16 @@ def contact(request):
     email=email,phone=phone,message=message,user_id=user_id)
 
     contact.save()
+
+    #Send Mail
+    send_mail(
+        'Property listing inquiry',
+        'There has been an inquiry for '+listing+'. Log in to admin panel for more',
+        'sampleemail@gmail.com',
+        [realtor_email,],
+        fail_silently=False
+
+    )
 
     messages.success(request,"Your request has been submitted, A realtor will get back to you soon!")
     return redirect('/listings/'+listing_id)
