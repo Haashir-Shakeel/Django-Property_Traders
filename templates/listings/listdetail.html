@@ -183,11 +183,13 @@
             </div>
             <div class="form-group">
               <label for="name" class="col-form-label">Name:</label>
-              <input type="text" name="name" class="form-control" required>
+              <input {% if user.is_authenticated%} value="{{user.first_name}} {{user.last_name}}" {% endif %}
+              type="text" name="name" class="form-control" required>
             </div>
             <div class="form-group">
               <label for="email" class="col-form-label">Email:</label>
-              <input type="email" name="email" class="form-control" required>
+              <input {% if user.is_authenticated%} value="{{user.email}}" {% endif %}
+                 type="email" name="email" class="form-control"  required>
             </div>
             <div class="form-group">
               <label for="phone" class="col-form-label">Phone:</label>
@@ -205,4 +207,4 @@
     </div>
   </div>
 
-{%endblock %}
+{% endblock %}
